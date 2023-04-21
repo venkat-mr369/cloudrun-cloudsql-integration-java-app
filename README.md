@@ -27,7 +27,7 @@ gcloud sql users create cloud-user \
 ```bash
 gcloud iam service-accounts list
 
-gcloud projects add-iam-policy-binding testingiamproject-369302 \
+gcloud projects add-iam-policy-binding ams369 \
   --member="serviceAccount:SERVICE_ACCOUNT_EMAIL" \
   --role="roles/cloudsql.client"
 ```
@@ -35,18 +35,18 @@ gcloud projects add-iam-policy-binding testingiamproject-369302 \
 ## Configure a Cloud SQL sample app
 ```bash
 mvn clean package com.google.cloud.tools:jib-maven-plugin:2.8.0:build \
- -Dimage=gcr.io/testingiamproject-369302/cloudsqlrun:v1 -DskipTests
+ -Dimage=gcr.io/ams369/cloudsqlrun:v1 -DskipTests
 ```
 
 
 ## CLoud run Deploy
 ```bash
-gcloud run deploy run-sql --image gcr.io/testingiamproject-369302/cloudsqlrun:v1 \
+gcloud run deploy run-sql --image gcr.io/ams369/cloudsqlrun:v1 \
   --region us-central1 \
   --allow-unauthenticated \
   --add-cloudsql-instances testingiamproject-369302:us-central1:cloudrun-db-instance \
   --set-env-vars INSTANCE_UNIX_SOCKET="/cloudsql/testingiamproject-369302:us-central1:cloudrun-db-instance" \
-  --set-env-vars INSTANCE_CONNECTION_NAME="testingiamproject-369302:us-central1:cloudrun-db-instance" \
+  --set-env-vars INSTANCE_CONNECTION_NAME="ams369:us-central1:cloudrun-db-instance" \
   --set-env-vars DB_NAME="compare_db" \
   --set-env-vars DB_USER="cloud-user" \
   --set-env-vars DB_PASS="sql@2012"
