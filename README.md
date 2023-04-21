@@ -7,7 +7,7 @@
 --memory=4GB \
 --region=us-central1 \
 --authorized-networks <public_p>/32 \
---root-password=Gcp@2022
+--root-password=sql@2012
 ```
 
 
@@ -20,7 +20,7 @@ gcloud sql databases create compare_db --instance=cloudrun-db-instance
 ```bash
 gcloud sql users create cloud-user \
 --instance=cloudrun-db-instance \
---password=Gcp@2022
+--password=sql@2012
 ```
 
 ## (Optional) Configure a Cloud Run service account
@@ -49,7 +49,7 @@ gcloud run deploy run-sql --image gcr.io/testingiamproject-369302/cloudsqlrun:v1
   --set-env-vars INSTANCE_CONNECTION_NAME="testingiamproject-369302:us-central1:cloudrun-db-instance" \
   --set-env-vars DB_NAME="compare_db" \
   --set-env-vars DB_USER="cloud-user" \
-  --set-env-vars DB_PASS="Gcp@2022"
+  --set-env-vars DB_PASS="sql@2012"
 ```
 
 ## Note
